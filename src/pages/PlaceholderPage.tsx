@@ -1,0 +1,4 @@
+import { ArrowRight, ClipboardList, Construction } from 'lucide-react'
+export function PlaceholderPage({ title, description, phase }: { title: string; description: string; phase: string }) {
+  return <div className="content-page"><div className="module-banner"><div className="module-icon"><Construction size={23} /></div><div><span className="form-kicker">IMPLEMENTATION ROADMAP · {phase}</span><h2>{title}</h2><p>{description}</p></div></div><div className="panel-card module-card"><div className="module-card-icon"><ClipboardList size={20} /></div><h3>This module is scheduled for the next implementation step</h3><p>The application foundation and role-based access are being established first. This module will be connected to the secured database and the asthma-specific clinical workflow in its implementation phase.</p><div className="module-next">Next: database-backed forms and workflows <ArrowRight size={16} /></div></div></div>
+}

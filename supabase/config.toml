@@ -1,0 +1,7 @@
+project_id = "respira-pulmonary-rehab"
+
+[functions.admin-create-user]
+verify_jwt = true
+
+[functions.create-patient-invitation]
+verify_jwt = true
