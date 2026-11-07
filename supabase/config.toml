@@ -5,3 +5,6 @@ verify_jwt = true
 
 [functions.create-patient-invitation]
 verify_jwt = true
+
+[functions.activate-patient-account]
+verify_jwt = true
