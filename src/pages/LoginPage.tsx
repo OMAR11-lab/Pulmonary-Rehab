@@ -3,20 +3,22 @@ import type { FormEvent } from 'react'
 import { Activity, ArrowRight, LockKeyhole, Mail, Wind } from 'lucide-react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
-import { isSupabaseConfigured, supabase } from '../lib/supabase'
-type Mode='staff'|'patient'
+import { isSupabaseConfigured } from '../lib/supabase'
+
 export function LoginPage() {
   const { user, profile, loading, signIn } = useAuth()
-  const [mode,setMode]=useState<Mode>('staff')
-  const [email,setEmail]=useState('');const [password,setPassword]=useState('');const [phone,setPhone]=useState('')
-  const [busy,setBusy]=useState(false);const [error,setError]=useState('')
-  if (!loading && user && profile?.is_active) return <Navigate to="/" replace />
-  async function submitStaff(event:FormEvent<HTMLFormElement>){event.preventDefault();setError('');setBusy(true);try{await signIn(email.trim(),password)}catch(e){setError(e instanceof Error?e.message:'Unable to sign in.')}finally{setBusy(false)}}
-  async function submitPatient(event:FormEvent<HTMLFormElement>){event.preventDefault();if(!supabase)return;setError('');setBusy(true);const {error:e}=await supabase.auth.signInWithPassword({phone:phone.trim(),password});if(e)setError(e.message);setBusy(false)}
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  if (!loading && user && profile?.is_active) return <Navigate to={profile.role === 'patient' ? '/' : '/'} replace />
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault(); setError(''); setBusy(true)
+    try { await signIn(email.trim(), password) } catch (e) { setError(e instanceof Error ? e.message : 'Unable to sign in.') } finally { setBusy(false) }
+  }
   return <div className="login-page"><section className="login-visual"><div className="login-brand"><div className="brand-mark"><Wind size={23}/></div><div><strong>Respira</strong><span>ASTHMA REHABILITATION</span></div></div><div className="visual-copy"><div className="visual-kicker"><Activity size={15}/> CLINICIAN-LED CARE</div><h1>Better breathing.<br/><em>Stronger living.</em></h1><p>A connected space for bronchial asthma rehabilitation, guided exercise and measurable progress.</p></div><div className="visual-bottom"><span>ASSESS</span><b>·</b><span>PLAN</span><b>·</b><span>MONITOR</span><b>·</b><span>IMPROVE</span></div><div className="orb orb-one"/><div className="orb orb-two"/></section>
-  <section className="login-panel"><div className="login-form-wrap"><div className="mobile-brand"><div className="brand-mark"><Wind size={20}/></div><strong>Respira</strong></div><div className="form-kicker">WELCOME BACK</div><h2>Sign in to your workspace</h2><p className="muted">Use the account credentials provided by your platform administrator or created during patient activation.</p>
+  <section className="login-panel"><div className="login-form-wrap"><div className="mobile-brand"><div className="brand-mark"><Wind size={20}/></div><strong>Respira</strong></div><div className="form-kicker">STAFF ACCESS</div><h2>Sign in to the clinical workspace</h2><p className="muted">For administrators and pulmonary rehabilitation clinicians. Patients should use the dedicated patient portal.</p>
   {!isSupabaseConfigured&&<div className="config-warning"><strong>Setup required</strong><span>Connect your Supabase project by adding the environment variables from <code>.env.example</code>.</span></div>}
-  <div className="login-mode-switch"><button className={mode==='staff'?'selected':''} onClick={()=>{setMode('staff');setError('')}}>Staff sign in</button><button className={mode==='patient'?'selected':''} onClick={()=>{setMode('patient');setError('')}}>Patient sign in</button></div>
-  {mode==='staff'?<form onSubmit={submitStaff} className="login-form"><label>Email address</label><div className="input-wrap"><Mail size={17}/><input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="name@hospital.com" required autoComplete="username"/></div><label>Password</label><div className="input-wrap"><LockKeyhole size={17}/><input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Enter your password" required autoComplete="current-password"/></div>{error&&<div className="form-error">{error}</div>}<button className="primary-button full" disabled={busy||!isSupabaseConfigured}>{busy?'Signing in…':'Sign in'}<ArrowRight size={17}/></button></form>:<form onSubmit={submitPatient} className="login-form"><label>Registered phone number</label><div className="input-wrap"><LockKeyhole size={17}/><input type="tel" value={phone} onChange={e=>setPhone(e.target.value)} placeholder="+20…" required autoComplete="tel"/></div><label>Password</label><div className="input-wrap"><LockKeyhole size={17}/><input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Your patient password" required autoComplete="current-password"/></div>{error&&<div className="form-error">{error}</div>}<button className="primary-button full" disabled={busy||!isSupabaseConfigured}>{busy?'Signing in…':'Sign in'}<ArrowRight size={17}/></button></form>}
-  <div className="login-security"><LockKeyhole size={15}/><span>Your clinical workspace is protected by role-based access.</span></div><p className="login-footnote">Patients verify their phone number against the clinic record during activation. No SMS is sent. Patient access does not replace prescribed asthma treatment or emergency care.</p></div></section></div>
+  <form onSubmit={submit} className="login-form"><label>Email address</label><div className="input-wrap"><Mail size={17}/><input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="name@hospital.com" required autoComplete="username"/></div><label>Password</label><div className="input-wrap"><LockKeyhole size={17}/><input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Enter your password" required autoComplete="current-password"/></div>{error&&<div className="form-error">{error}</div>}<button className="primary-button full" disabled={busy||!isSupabaseConfigured}>{busy?'Signing in…':'Staff sign in'}<ArrowRight size={17}/></button></form>
+  <div className="login-security"><LockKeyhole size={15}/><span>Secure access for authorized clinical staff.</span></div><p className="login-footnote">Are you a patient? <a href="/patient-login">افتح بوابة المريض</a></p></div></section></div>
 }
