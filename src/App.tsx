@@ -3,6 +3,7 @@ import { AuthProvider } from './lib/auth'
 import { AppShell } from './components/AppShell'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { LoginPage } from './pages/LoginPage'
+import { PatientActivationPage } from './pages/PatientActivationPage'
 import { SetPasswordPage } from './pages/SetPasswordPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { UsersPage } from './pages/UsersPage'
@@ -18,6 +19,7 @@ import './styles.css'
 export default function App() {
   return <BrowserRouter><AuthProvider><Routes>
     <Route path="/login" element={<LoginPage />} />
+    <Route path="/patient-activate" element={<PatientActivationPage />} />
     <Route path="/set-password" element={<SetPasswordPage />} />
     <Route element={<ProtectedRoute />}><Route element={<AppShell />}>
       <Route index element={<DashboardPage />} />
