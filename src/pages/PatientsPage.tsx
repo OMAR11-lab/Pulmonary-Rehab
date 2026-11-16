@@ -43,9 +43,20 @@ export function PatientsPage() {
     if (!supabase || !selected) return
     setInviting(true); setError(''); setNotice(''); setInvitationUrl('')
     const { data, error: inviteError } = await supabase.functions.invoke('create-patient-invitation', { body: { patient_id: selected.id } })
-    if (inviteError) setError(inviteError.message)
-    else if (data?.activation_url) { setInvitationUrl(data.activation_url); setNotice(`Invitation created for ${data.phone}. It expires ${new Date(data.expires_at).toLocaleString()}.`) }
-    else setError(data?.error || 'Unable to create invitation.')
+    if (inviteError) {
+      let detail = inviteError.message
+      try {
+        const response = (inviteError as { context?: Response }).context
+        if (response) {
+          const body = await response.clone().json()
+          if (body?.error) detail = body.error
+        }
+      } catch { /* retain the Supabase error message */ }
+      setError(detail)
+    } else if (data?.activation_url) {
+      setInvitationUrl(data.activation_url)
+      setNotice(`Invitation created for ${data.phone}. It expires ${new Date(data.expires_at).toLocaleString()}.`)
+    } else setError(data?.error || 'Unable to create invitation.')
     setInviting(false)
   }
 
