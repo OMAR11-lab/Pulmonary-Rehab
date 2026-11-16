@@ -53,3 +53,6 @@
 .patient-ar-back{display:inline-flex;align-items:center;gap:8px;color:#39756e;text-decoration:none;font-size:13px;font-weight:700}
 .patient-ar-page .content-page{margin-top:20px}
 @media(max-width:640px){.patient-ar-page{padding:14px}.patient-ar-card{padding:22px 18px;margin:12px auto}.patient-ar-top{align-items:flex-start}}
+
+/* Draft-plan activity editing controls */
+.draft-activity-controls{display:flex;align-items:center;gap:10px;flex-shrink:0}.draft-activity-controls .text-button{display:inline-flex;align-items:center;gap:4px}
