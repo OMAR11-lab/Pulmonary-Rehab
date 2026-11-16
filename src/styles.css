@@ -30,3 +30,26 @@
 .icon-button{text-decoration:none}
 .eligibility-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:4px 0}.eligibility-grid label{display:grid;gap:5px;font-size:9px!important;line-height:1.4}.eligibility-grid select{height:34px!important}@media(max-width:560px){.eligibility-grid{grid-template-columns:1fr}}
 .library-media-link{font-size:9px;color:#3d8278;font-weight:700;text-decoration:none}.library-media-link:hover{text-decoration:underline}.library-card-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:3px}.library-card-actions button{font-size:9px;padding:8px 10px}
+
+
+/* Dedicated Arabic patient portal */
+.patient-ar-page{min-height:100vh;background:#f2f8f5;color:#294f52;padding:28px 5vw 48px;direction:rtl}
+.patient-ar-card{width:min(100%,560px);margin:24px auto;background:#fff;border:1px solid #e0ebe5;border-radius:18px;padding:clamp(24px,4vw,42px);box-shadow:0 14px 44px rgba(35,75,68,.07)}
+.patient-ar-wide{width:min(100%,1040px)}
+.patient-ar-brand{display:flex;align-items:center;gap:11px;margin-bottom:34px}
+.patient-ar-brand>span{width:42px;height:42px;border-radius:13px;background:#eaf5ef;color:#28716e;display:grid;place-items:center}
+.patient-ar-brand>div{display:grid;gap:3px}.patient-ar-brand strong{font-size:20px;color:#28615e}.patient-ar-brand small{font-size:11px;color:#839996}
+.patient-ar-card h1{font-size:clamp(25px,4vw,35px);line-height:1.4;color:#214d52;margin:10px 0 12px}
+.patient-ar-muted{font-size:14px;line-height:2;color:#7b9290;margin:0 0 24px}
+.patient-ar-card .login-form{display:grid;gap:12px}.patient-ar-card .login-form label{margin-top:8px}
+.patient-ar-card .input-wrap input{text-align:right}
+.patient-ar-foot{font-size:11px;line-height:2;color:#829795;margin-top:22px}
+.patient-ar-staff-link{display:inline-block;margin-top:10px;color:#32766f;font-size:12px;font-weight:700;text-decoration:none}
+.patient-ar-top{max-width:1040px;margin:0 auto 22px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.patient-ar-feature{border:1px solid #e3eee8;border-radius:14px;padding:24px;margin-top:28px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.patient-ar-feature-icon{width:44px;height:44px;border-radius:12px;background:#edf6f1;color:#32766f;display:grid;place-items:center}
+.patient-ar-feature h2{font-size:19px;color:#315d5d;margin:4px 0}
+.patient-ar-feature p{font-size:13px;line-height:1.9;color:#7a9090;margin:0}
+.patient-ar-back{display:inline-flex;align-items:center;gap:8px;color:#39756e;text-decoration:none;font-size:13px;font-weight:700}
+.patient-ar-page .content-page{margin-top:20px}
+@media(max-width:640px){.patient-ar-page{padding:14px}.patient-ar-card{padding:22px 18px;margin:12px auto}.patient-ar-top{align-items:flex-start}}
